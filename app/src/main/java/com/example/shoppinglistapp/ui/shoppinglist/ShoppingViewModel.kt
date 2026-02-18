@@ -75,21 +75,12 @@ class ShoppingViewModel @Inject constructor(
         processItems()
     }
 
-    fun onShowAddDialog(show: Boolean) {
-        if (!show) {
-            _uiState.update { it.copy(showAddDialog = false, itemToEdit = null, itemName = "", itemCategory = Category.Milk) }
-        } else {
-            _uiState.update { it.copy(showAddDialog = true) }
-        }
-    }
-
     fun onEditItem(item: ShoppingItem?) {
         _uiState.update {
             it.copy(
                 itemToEdit = item,
                 itemName = item?.name ?: "",
                 itemCategory = item?.category ?: Category.Milk,
-                showAddDialog = true
             )
         }
     }
@@ -113,7 +104,7 @@ class ShoppingViewModel @Inject constructor(
                 updateShoppingItemUseCase(item)
             }
         }
-        onShowAddDialog(false)
+        _uiState.update { it.copy(itemToEdit = null, itemName = "", itemCategory = Category.Milk) }
     }
 
 

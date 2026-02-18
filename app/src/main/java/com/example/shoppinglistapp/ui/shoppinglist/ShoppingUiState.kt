@@ -7,7 +7,6 @@ data class ShoppingUiState(
     val filteredItems: List<ShoppingItem> = emptyList(),
     val categories: List<Category> = Category.values().toList(),
     val selectedCategories: Set<Category> = emptySet(),
-    val showAddDialog: Boolean = false,
     val itemToEdit: ShoppingItem? = null,
     val itemName: String = "",
     val itemCategory: Category = Category.Milk,

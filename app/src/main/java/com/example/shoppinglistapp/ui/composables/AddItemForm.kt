@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -114,7 +115,8 @@ fun AddItemForm(
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
                 ) {
                     Text(text = "Item Name", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Spacer(modifier = Modifier.height(8.dp))
@@ -126,8 +128,8 @@ fun AddItemForm(
                             .fillMaxWidth()
                             .focusRequester(focusRequester)
                             .bringIntoViewRequester(bringIntoViewRequester)
-                            .onFocusEvent { event ->
-                                if (event.isFocused) {
+                            .onFocusChanged {
+                                if (it.isFocused) {
                                     coroutineScope.launch {
                                         bringIntoViewRequester.bringIntoView()
                                     }

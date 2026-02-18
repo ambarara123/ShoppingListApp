@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
@@ -35,12 +36,7 @@ fun ShoppingListScreen(
     val uiState by viewModel.uiState.collectAsState()
     val focusManager = LocalFocusManager.current
     val lazyListState = rememberLazyListState()
-
-    LaunchedEffect(lazyListState.isScrollInProgress) {
-        if (lazyListState.isScrollInProgress) {
-            focusManager.clearFocus()
-        }
-    }
+    var showAddDialog by remember { mutableStateOf(false) }
 
     LazyColumn(
         state = lazyListState,
@@ -53,6 +49,11 @@ fun ShoppingListScreen(
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
                 })
+            }
+            .pointerInput(Unit) {
+                detectVerticalDragGestures { _, _ ->
+                    focusManager.clearFocus()
+                }
             },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -72,9 +73,12 @@ fun ShoppingListScreen(
                 selectedCategory = uiState.itemCategory,
                 onItemNameChange = viewModel::onItemNameChange,
                 onCategoryChange = viewModel::onCategoryChange,
-                onSaveItem = viewModel::onSaveItem,
-                showForm = uiState.showAddDialog,
-                onToggleForm = { viewModel.onShowAddDialog(!uiState.showAddDialog) },
+                onSaveItem = {
+                    viewModel.onSaveItem()
+                    showAddDialog = false
+                },
+                showForm = showAddDialog,
+                onToggleForm = { showAddDialog = !showAddDialog },
                 isEditing = uiState.itemToEdit != null
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -93,6 +97,7 @@ fun ShoppingListScreen(
                     },
                     onEditClick = {
                         viewModel.onEditItem(item)
+                        showAddDialog = true
                     },
                     onDeleteClick = {
                         viewModel.onDeleteItem(item)
@@ -100,6 +105,9 @@ fun ShoppingListScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
+        }
+        item {
+            Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
@@ -211,7 +219,7 @@ fun SortMenu(
     ) {
         SortOption.values().forEach { option ->
             DropdownMenuItem(
-                text = { Text(option.name) },
+                text = { Text(option.displayName) },
                 onClick = { onSortOptionSelected(option) }
             )
         }
