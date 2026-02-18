@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.shoppinglistapp.data.model.Category
 import com.example.shoppinglistapp.data.model.SortOption
@@ -43,8 +42,8 @@ fun ShoppingListScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
-            .statusBarsPadding() // Handles top system bar
-            .imePadding()       // Handles bottom IME (keyboard) padding
+            .statusBarsPadding()
+            .imePadding()
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -128,7 +127,7 @@ fun GroceryHeader(
     ) {
         Box(
             modifier = Modifier
-                .size(120.dp)
+                .size(100.dp)
                 .clip(androidx.compose.foundation.shape.CircleShape)
                 .background(com.example.shoppinglistapp.ui.theme.Gradient.Purple),
             contentAlignment = Alignment.Center
@@ -137,7 +136,7 @@ fun GroceryHeader(
                 imageVector = Icons.Default.ShoppingCart,
                 contentDescription = "Shopping Cart",
                 tint = Color.White,
-                modifier = Modifier.size(60.dp)
+                modifier = Modifier.size(50.dp)
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -162,7 +161,7 @@ fun GroceryHeader(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Sort by: ${sortOption.name}",
+                    text = "Sort by: ${sortOption.displayName}",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -242,7 +241,7 @@ fun FilterMenu(
             text = { Text("All") },
             onClick = {
                 selectedCategories.forEach { category ->
-                    onToggleCategoryFilter(category) // Untoggle all currently selected categories
+                    onToggleCategoryFilter(category)
                 }
                 onDismissRequest()
             }

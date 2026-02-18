@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,18 +40,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -59,7 +55,6 @@ import com.example.shoppinglistapp.data.model.Category
 import com.example.shoppinglistapp.ui.theme.Gradient
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AddItemForm(
     itemName: String,
@@ -78,12 +73,16 @@ fun AddItemForm(
     // Request focus when the form becomes visible
     LaunchedEffect(showForm) {
         if (showForm) {
-            focusRequester.requestFocus()
+            coroutineScope.launch {
+                bringIntoViewRequester.bringIntoView()
+            }
         }
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .imePadding()
     ) {
         Button(
             onClick = onToggleForm,
@@ -126,7 +125,6 @@ fun AddItemForm(
                         placeholder = { Text("Enter grocery item...") },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .focusRequester(focusRequester)
                             .bringIntoViewRequester(bringIntoViewRequester)
                             .onFocusChanged {
                                 if (it.isFocused) {
