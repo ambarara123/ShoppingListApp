@@ -38,8 +38,8 @@ That's it! The app should build and run on your device.
 ## Demo
 
 <video width="300" controls>
-  <source src="Screen_recording.mp4" type="video/mp4">
-  Your browser does not support the video tag. [Click here to view the video.](Screen_recording.mp4)
+  <source src="https://github.com/ambarara123/ShoppingListApp/raw/main/Screen_recording.mp4" type="video/mp4">
+  Your browser does not support the video tag. [Click here to view the video.](https://github.com/ambarara123/ShoppingListApp/raw/main/Screen_recording.mp4)
 </video>
 
 ## Screenshots
