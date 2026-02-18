@@ -37,7 +37,10 @@ That's it! The app should build and run on your device.
 
 ## Demo
 
-<video src="Screen_recording.mp4" width="300" controls></video>
+<video width="300" controls>
+  <source src="Screen_recording.mp4" type="video/mp4">
+  Your browser does not support the video tag. [Click here to view the video.](Screen_recording.mp4)
+</video>
 
 ## Screenshots
 
