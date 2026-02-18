@@ -24,7 +24,7 @@ This is a simple shopping list application for Android, built with modern Androi
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/ambarara123/ShoppingListApp
     ```
 2.  **Open in Android Studio:**
     Open the project in the latest stable version of Android Studio.
@@ -34,3 +34,9 @@ This is a simple shopping list application for Android, built with modern Androi
     Select the `app` configuration and run it on an emulator or a physical device.
 
 That's it! The app should build and run on your device.
+
+## Screenshots
+
+<img src="Screenshot1.png" alt="Screenshot 1" width="300"/>
+<img src="Screenshot2.png" alt="Screenshot 2" width="300"/>
+<img src="Screenshot3.png" alt="Screenshot 3" width="300"/>
