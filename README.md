@@ -35,6 +35,10 @@ This is a simple shopping list application for Android, built with modern Androi
 
 That's it! The app should build and run on your device.
 
+## Demo
+
+<video src="Screen_recording.mp4" width="300" controls></video>
+
 ## Screenshots
 
 <img src="Screenshot1.png" alt="Screenshot 1" width="300"/>
